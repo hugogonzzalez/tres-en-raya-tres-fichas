@@ -7,7 +7,7 @@ const MAX_FICHAS = 3
 // Props que recibe (paso 2 añade selected y onSelect):
 //   selected -> posición de la ficha elegida para mover, o null
 //   onSelect -> función para cambiar la ficha elegida
-function Board({xIsNext, squares, onPlay}) {
+function Board({xIsNext, squares, onPlay, selected, onSelect}) {
   // TODO (paso 1): valores derivados
   const valor = xIsNext ? "X" : "O"
   //   - jugador: 'X' u 'O' según el turno
@@ -28,14 +28,29 @@ function Board({xIsNext, squares, onPlay}) {
       return
     }
 
-    if (squares[i] !== null) {
+    if (!faseMover) {
+      if (squares[i] !== null) {
+        return
+      }
+
+      const nombre = squares.slice()
+      nombre[i] = valor
+
+      onPlay(nombre)
       return
     }
 
-    const nombre = squares.slice()
-    nombre[i] = valor
+     if (squares[i] === valor) {
+      onSelect(i === selected ? null : i)
+      return
+    }
 
-    onPlay(nombre)
+     if (selected !== null && squares[i] === null) {
+      const nombre = squares.slice()
+      nombre[selected] = null
+      nombre[i] = valor
+      onPlay(nombre)
+    }
   }
 
   // TODO (paso 4): texto de estado según la fase
