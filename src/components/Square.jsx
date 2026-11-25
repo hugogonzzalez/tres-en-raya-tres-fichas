@@ -2,9 +2,10 @@
 //
 // TODO (paso 3): añade la prop "seleccionada". Si es true, el botón debe
 // tener las clases "square seleccionada" (la clase ya existe en App.css).
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, seleccionada }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button
+      className={seleccionada ? "square seleccionada" : "square"} onClick={onSquareClick}>
       {value}
     </button>
   )
