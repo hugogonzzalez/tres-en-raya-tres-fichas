@@ -53,15 +53,21 @@ function Board({xIsNext, squares, onPlay, selected, onSelect}) {
     }
   }
 
-  // TODO (paso 4): texto de estado según la fase
-  //   "Turno de X: coloca una ficha"
-  //   "Turno de X: elige una de tus fichas para moverla"
-  //   "Turno de X: elige una casilla vacía"
+  let mensaje
+  if (ganador) {
+    mensaje = "Ganador: " + ganador
+  } else if (!faseMover) {
+    mensaje = "Turno de " + valor + ": coloca una ficha"
+  } else if (selected === null) {
+    mensaje = "Turno de " + valor + ": elige una de tus fichas para moverla"
+  } else {
+    mensaje = "Turno de " + valor + ": elige una casilla vacía"
+  }
 
   return (
     <>
       <div className="status">
-        {ganador ? "Ganador: " + ganador : "Siguiente jugador: " + valor}
+        {mensaje}
       </div>
 
       <div className="board-row">
